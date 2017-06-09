@@ -1,4 +1,4 @@
-package ru.auto.stress.gatling.gatling
+package ru.auto.stress.gatling
 
 import io.gatling.recorder.GatlingRecorder
 import io.gatling.recorder.config.RecorderPropertiesBuilder

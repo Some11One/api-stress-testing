@@ -1,4 +1,4 @@
-package ru.auto.stress.gatling.gatling
+package ru.auto.stress.gatling
 
 import java.nio.file.Path
 

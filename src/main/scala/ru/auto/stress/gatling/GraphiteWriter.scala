@@ -7,6 +7,7 @@ import java.util.concurrent.{LinkedBlockingQueue, TimeUnit}
 /**
   * Author: ndmelentev (ndmelentev@yandex-team.ru)
   * Created: 08.06.17
+  * TODO: add logging
   */
 class GraphiteWriter(prefix: String, host: String, port: Int, queueSize: Int = 1000) {
   val points: LinkedBlockingQueue[Point] = new LinkedBlockingQueue[Point](queueSize)
@@ -14,7 +15,6 @@ class GraphiteWriter(prefix: String, host: String, port: Int, queueSize: Int = 1
   {
     new Thread(new InnerWriter(), "inner-graphite-writer").start()
     print("GraphiteWriter: Started graphite writer with prefix {" + this.prefix + "} to " + host + ":" + port)
-
   }
 
   def submit(name: String, value: String, timestamp: String): Unit = {
@@ -22,7 +22,6 @@ class GraphiteWriter(prefix: String, host: String, port: Int, queueSize: Int = 1
     if (name == null || name.isEmpty) {
       print("GraphiteWriter: Null or empty metric name received. Ignoring it.")
     } else if (value == null || value.isEmpty) {
-      //        log.error("Null or empty metric value received. Ignoring it.")
       print("GraphiteWriter: Null or empty metric value received. Ignoring it.")
     } else {
       try {

@@ -12,7 +12,7 @@ import scala.concurrent.duration._
 
 object OffersPostSearch {
 
-  val feeder: RecordSeqFeederBuilder[String] = csv("postSearch.csv").random
+  val feeder: RecordSeqFeederBuilder[String] = csv("offersPostSearch.csv").random
   val search: ChainBuilder = feed(feeder)
     .exec(
       http("Add offer")

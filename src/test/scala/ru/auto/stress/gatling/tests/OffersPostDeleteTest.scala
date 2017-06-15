@@ -35,8 +35,6 @@ object OffersPostDeleteSearch {
         .notSilent
         .asJSON
     )
-  var offerId = "-1"
-  var category = ""
 }
 
 class OffersPostDeleteTest extends Simulation with GatlingSettings {

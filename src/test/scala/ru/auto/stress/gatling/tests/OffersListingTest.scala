@@ -27,7 +27,7 @@ object OffersListingSearch {
 class OffersListingTest extends Simulation with GatlingSettings {
 
   override val scn: ScenarioBuilder = scenario("Listing").exec(OffersListingSearch.search)
-  override val scenarioName: String = "listing_response"
+  override val scenarioName: String = "listing"
 
   setUp(
     scn.inject(rampUsers(numberOfUsers).over(FiniteDuration.apply(rampSeconds, "seconds")))

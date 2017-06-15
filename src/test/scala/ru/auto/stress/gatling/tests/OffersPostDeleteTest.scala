@@ -1,4 +1,4 @@
-package ru.auto.stress.gatling.tests.user
+package ru.auto.stress.gatling.tests
 
 import io.gatling.core.Predef._
 import io.gatling.core.body.StringBody

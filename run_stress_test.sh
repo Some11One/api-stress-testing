@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 # listing
-mvn gatling:execute -Dgatling.simulationClass=ru.auto.stress.gatling.tests.user.OffersListingTest
+mvn gatling:execute -Dgatling.simulationClass=ru.auto.stress.gatling.tests.OffersListingTest
 
 # post + delete
-mvn gatling:execute -Dgatling.simulationClass=ru.auto.stress.gatling.tests.user.OffersPostDeleteTest
+mvn gatling:execute -Dgatling.simulationClass=ru.auto.stress.gatling.tests.OffersPostDeleteTest
 
+#

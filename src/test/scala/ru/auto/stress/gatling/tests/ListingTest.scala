@@ -11,11 +11,11 @@ import scala.concurrent.duration._
 
 object ListingSearch {
 
-  val feeder: RecordSeqFeederBuilder[String] = csv("search.csv").random
+  val feeder: RecordSeqFeederBuilder[String] = csv("listingSearch.csv").random
 
   val search: ChainBuilder = feed(feeder)
     .exec(
-      http("Search")
+      http("Get offers")
         .get("/offers/${category}")
         .header("x-uid", "${uid}")
         .header("x-authorization", "Vertis swagger-025b6a073d84564e709033f07438aa62")

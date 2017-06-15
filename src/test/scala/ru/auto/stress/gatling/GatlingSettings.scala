@@ -11,7 +11,7 @@ import io.gatling.http.protocol.HttpProtocolBuilder
   */
 trait GatlingSettings extends GatlingUtils {
 
-  val numberOfUsers = 150
+  val numberOfUsers = 1
   val rampSeconds = 1
 
   val scenarioName: String
@@ -20,7 +20,6 @@ trait GatlingSettings extends GatlingUtils {
   val httpConf: HttpProtocolBuilder = http
     .baseURL("http://autoru-api-01-sas.test.vertis.yandex.net:2600/1.0/user")
     .header("Accept", "application/json")
-    .header("Accept", "application/protobuf")
     .extraInfoExtractor(extraInfo => List(getExtraInfo(extraInfo)))
 
   val graphiteHost = "ndmelentev-01-sas.dev.vertis.yandex.net"

@@ -1,0 +1,21 @@
+[Host: autoru-api-01-sas.test.vertis.yandex.net]
+[Accept: "application/json"]
+[x-authorization: Vertis swagger-025b6a073d84564e709033f07438aa62]
+[x-uid: 1]
+/1.0/user/offers/cars
+[x-uid: 2]
+/1.0/user/offers/cars
+[x-uid: 3]
+/1.0/user/offers/cars
+[x-uid: 5]
+/1.0/user/offers/moto
+[x-uid: 9]
+/1.0/user/offers/moto
+[x-uid: 46]
+/1.0/user/offers/moto
+[x-uid: 61]
+/1.0/user/offers/trucks
+[x-uid: 100]
+/1.0/user/offers/trucks
+[x-uid: 111]
+/1.0/user/offers/trucks

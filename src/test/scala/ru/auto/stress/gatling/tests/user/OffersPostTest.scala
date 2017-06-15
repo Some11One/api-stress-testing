@@ -1,4 +1,4 @@
-package ru.auto.stress.gatling.tests
+package ru.auto.stress.gatling.tests.user
 
 import io.gatling.core.Predef._
 import io.gatling.core.body.StringBody
@@ -10,7 +10,7 @@ import ru.auto.stress.gatling.GatlingSettings
 
 import scala.concurrent.duration._
 
-object PostSearch {
+object OffersPostSearch {
 
   val feeder: RecordSeqFeederBuilder[String] = csv("postSearch.csv").random
   val search: ChainBuilder = feed(feeder)
@@ -26,9 +26,9 @@ object PostSearch {
     )
 }
 
-class PostTest extends Simulation with GatlingSettings {
+class OffersPostTest extends Simulation with GatlingSettings {
 
-  override val scn: ScenarioBuilder = scenario("Post").exec(PostSearch.search)
+  override val scn: ScenarioBuilder = scenario("Post").exec(OffersPostSearch.search)
   override val scenarioName: String = "post_response"
 
   setUp(

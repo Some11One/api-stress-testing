@@ -1,4 +1,4 @@
-package ru.auto.stress.gatling.tests
+package ru.auto.stress.gatling.tests.user
 
 import io.gatling.core.Predef._
 import io.gatling.core.body.StringBody
@@ -10,7 +10,7 @@ import ru.auto.stress.gatling.GatlingSettings
 
 import scala.concurrent.duration._
 
-object DeleteSearch {
+object OffersPostDeleteSearch {
 
   val feeder: RecordSeqFeederBuilder[String] = csv("postSearch.csv").random
   val search: ChainBuilder = feed(feeder)
@@ -39,9 +39,9 @@ object DeleteSearch {
   var category = ""
 }
 
-class DeleteTest extends Simulation with GatlingSettings {
+class OffersPostDeleteTest extends Simulation with GatlingSettings {
 
-  override val scn: ScenarioBuilder = scenario("PostDelete").exec(DeleteSearch.search)
+  override val scn: ScenarioBuilder = scenario("PostDelete").exec(OffersPostDeleteSearch.search)
   override val scenarioName: String = "delete_response"
 
   setUp(

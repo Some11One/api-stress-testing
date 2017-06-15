@@ -1,4 +1,4 @@
-package ru.auto.stress.gatling.tests
+package ru.auto.stress.gatling.tests.user
 
 import io.gatling.core.Predef._
 import io.gatling.core.feeder.RecordSeqFeederBuilder
@@ -9,7 +9,7 @@ import ru.auto.stress.gatling.GatlingSettings
 
 import scala.concurrent.duration._
 
-object ListingSearch {
+object OffersListingSearch {
 
   val feeder: RecordSeqFeederBuilder[String] = csv("listingSearch.csv").random
 
@@ -24,9 +24,9 @@ object ListingSearch {
     )
 }
 
-class ListingTest extends Simulation with GatlingSettings {
+class OffersListingTest extends Simulation with GatlingSettings {
 
-  override val scn: ScenarioBuilder = scenario("Listing").exec(ListingSearch.search)
+  override val scn: ScenarioBuilder = scenario("Listing").exec(OffersListingSearch.search)
   override val scenarioName: String = "listing_response"
 
   setUp(

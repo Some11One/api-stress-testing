@@ -37,9 +37,9 @@ trait GatlingUtils {
     graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_KO.p99", percentile(99, responseTimesKO).toString, null)
     graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_KO.p95", percentile(95, responseTimesKO).toString, null)
     graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_KO.p75", percentile(75, responseTimesKO).toString, null)
-    graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_.KO.p50", percentile(50, responseTimesKO).toString, null)
-    print(s"\nWaiting 10 sec to send data to Graphit...\n")
-    Thread.sleep(10000)
+    graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_KO.p50", percentile(50, responseTimesKO).toString, null)
+    print(s"\nWaiting 2 sec to send data to Graphit...\n")
+    Thread.sleep(2000)
     print(s"Waiting complete.\n")
   }
 

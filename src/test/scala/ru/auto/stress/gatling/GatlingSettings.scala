@@ -11,8 +11,8 @@ import io.gatling.http.protocol.HttpProtocolBuilder
   */
 trait GatlingSettings extends GatlingUtils {
 
-  val numberOfUsers = 1
-  val rampSeconds = 1
+  val numberOfUsers = 1000
+  val rampSeconds = 10
 
   val scenarioName: String
   val scn: ScenarioBuilder

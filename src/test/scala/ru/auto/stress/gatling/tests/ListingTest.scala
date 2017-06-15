@@ -33,7 +33,7 @@ class ListingTest extends Simulation with GatlingSettings {
     scn.inject(rampUsers(numberOfUsers).over(FiniteDuration.apply(rampSeconds, "seconds")))
   ).protocols(httpConf)
 
-  after({
+  after(
     printToGraphit(graphiteWriter, numberOfUsers, rampSeconds, scenarioName)
-  })
+  )
 }

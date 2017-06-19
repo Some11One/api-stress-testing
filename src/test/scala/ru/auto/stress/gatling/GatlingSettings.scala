@@ -10,7 +10,7 @@ import io.gatling.http.protocol.HttpProtocolBuilder
   */
 trait GatlingSettings extends GatlingUtils {
 
-  val rps: Int = 35
+  val rps: Int = 30
   val rampSeconds: Int = 600
   val numberOfUsers: Int = rps * rampSeconds
 

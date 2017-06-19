@@ -14,7 +14,6 @@ trait GatlingSettings extends GatlingUtils {
   val numberOfUsers = 1000
   val rampSeconds = 10
 
-  val numberOfSteps: Int
   val scenarioName: String
   val scn: ScenarioBuilder
 

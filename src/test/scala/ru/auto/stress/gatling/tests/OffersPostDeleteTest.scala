@@ -26,7 +26,7 @@ object OffersPostDeleteSearch {
         .check(
           jsonPath("$.offer_id").saveAs("offerId")
         )
-    ).pause(5)
+    ).pause(60)
     .exec(
       http("Delete offer")
         .delete("/offers/${category}/${offerId}".get)
@@ -40,8 +40,8 @@ object OffersPostDeleteSearch {
 
 class OffersPostDeleteTest extends Simulation with GatlingSettings {
 
-  override val scn: ScenarioBuilder = scenario("PostDelete").exec(OffersPostDeleteSearch.search)
-  override val scenarioName: String = "post_delete"
+  override val scn: ScenarioBuilder = scenario("OffersPostDelete").exec(OffersPostDeleteSearch.search)
+  override val scenarioName: String = "offers_post_delete"
 
   setUp(
     scn.inject(rampUsers(numberOfUsers).over(FiniteDuration.apply(rampSeconds, "seconds")))

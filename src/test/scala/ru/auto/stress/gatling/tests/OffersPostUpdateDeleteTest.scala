@@ -26,7 +26,7 @@ object OffersPostUpdateDeleteSearch {
         .check(
           jsonPath("$.offer_id").saveAs("offerId")
         )
-    ).pause(2).exec(
+    ).pause(60).exec(
     http("Update offer")
       .put("/offers/${category}/${offerId}")
       .body(StringBody("{\ncar_info: {\n  body_type: \"ALLROAD_5_DOORS\",\n  engine_type: \"DIESEL\",\n  transmission: \"AUTOMATIC\",\n  drive: \"ALL_WHEEL_DRIVE\",\n  mark: \"MERCEDES\",\n  model: \"GL_KLASSE\",\n  tech_param_id: 20494193\n},\ncolor_hex: \"007F00\",\nsection: USED,\navailability: IN_STOCK,\nprice_info: {\n  price: 5000.0,\n  currency: \"RUR\"\n},\ndocuments: {\n  year: 2010\n},\nstate: {\n  mileage: 50000\n},\nprivate_seller: {\n  phones: [{\n    phone: \"${phone}\"\n  }],\n  location: {\n    geobase_id: 213\n  }\n}\n}"))

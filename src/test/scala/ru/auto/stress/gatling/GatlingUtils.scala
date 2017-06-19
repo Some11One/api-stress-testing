@@ -13,7 +13,7 @@ trait GatlingUtils {
 
   private val responseTimes: mutable.HashMap[Int, Int] = mutable.HashMap[Int, Int]()
 
-  def getExtraInfo(numberOfSteps: Int, extraInfo: ExtraInfo): String = {
+  def getExtraInfo(extraInfo: ExtraInfo): String = {
 
     val responseTime = extraInfo.response.timings.responseTime
     val uid = extraInfo.request.getHeaders.get("uid")

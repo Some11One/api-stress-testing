@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # all
-sudo mvn gatling:execute
+mvn gatling:execute

@@ -1,7 +1,6 @@
 package ru.auto.stress.gatling
 
 import io.gatling.core.Predef._
-import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 
@@ -11,11 +10,9 @@ import io.gatling.http.protocol.HttpProtocolBuilder
   */
 trait GatlingSettings extends GatlingUtils {
 
-  val numberOfUsers = 1000
-  val rampSeconds = 10
-
-  val scenarioName: String
-  val scn: ScenarioBuilder
+  val rps: Int = 40
+  val rampSeconds: Int = 10
+  val numberOfUsers: Int = rps * rampSeconds
 
   val httpConf: HttpProtocolBuilder = http
     .baseURL("http://autoru-api-01-sas.test.vertis.yandex.net:2600/1.0/user")

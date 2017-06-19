@@ -11,14 +11,23 @@ import scala.collection.mutable
   */
 trait GatlingUtils {
 
-  private val responseTimes: mutable.HashMap[Int, Int] = mutable.HashMap[Int, Int]()
+  private val responseTimes: mutable.HashMap[String, mutable.HashMap[Long, Int]] = mutable.HashMap[String, mutable.HashMap[Long, Int]]()
 
   def getExtraInfo(extraInfo: ExtraInfo): String = {
-
     val responseTime = extraInfo.response.timings.responseTime
-    val uid = extraInfo.request.getHeaders.get("uid")
-    val oldResponseTimeForUid = responseTimes.getOrElse(uid.toInt, 0)
-    responseTimes.update(uid.toInt, oldResponseTimeForUid + responseTime)
+
+    val session = extraInfo.session.scenario
+    val startDate = extraInfo.session.startDate
+
+    val oldResponseTimes: mutable.HashMap[Long, Int] = responseTimes.getOrElse(session, mutable.HashMap.empty)
+    if (oldResponseTimes.isEmpty) {
+      val newResponseTimeForUid = new mutable.HashMap[Long, Int]()
+      newResponseTimeForUid.update(startDate, responseTime)
+      responseTimes.update(session, newResponseTimeForUid)
+    } else {
+      val oldResponseTimesForUid = oldResponseTimes.getOrElse(startDate, 0)
+      oldResponseTimes.update(startDate, oldResponseTimesForUid + responseTime)
+    }
 
     if (extraInfo.status.eq(Status.apply("KO"))) {
       ",URL:" + extraInfo.request.getUrl +
@@ -30,11 +39,19 @@ trait GatlingUtils {
     }
   }
 
-  def printToGraphit(graphiteWriter: GraphiteWriter, numberOfUsers: Int, rampSeconds: Int, scenarioName: String): Unit = {
-    graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_OK.p99", percentile(99, responseTimes.values.toSeq).toString, null)
-    graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_OK.p95", percentile(95, responseTimes.values.toSeq).toString, null)
-    graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_OK.p75", percentile(75, responseTimes.values.toSeq).toString, null)
-    graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_OK.p50", percentile(50, responseTimes.values.toSeq).toString, null)
+  def printToGraphite(graphiteWriter: GraphiteWriter, numberOfUsers: Int, rampSeconds: Int): Unit = {
+
+    for (scenarioTimes <- responseTimes) {
+
+      val scenarioName = scenarioTimes._1
+      val scenarioResponseTimes = scenarioTimes._2
+
+      graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_OK.p99", percentile(99, scenarioResponseTimes.values.toSeq).toString, null)
+      graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_OK.p95", percentile(95, scenarioResponseTimes.values.toSeq).toString, null)
+      graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_OK.p75", percentile(75, scenarioResponseTimes.values.toSeq).toString, null)
+      graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_OK.p50", percentile(50, scenarioResponseTimes.values.toSeq).toString, null)
+    }
+
     print(s"\nWaiting 10 sec to send data to Graphit...\n")
     Thread.sleep(10000)
     print(s"Waiting complete.\n")

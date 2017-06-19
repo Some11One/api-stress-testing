@@ -46,7 +46,7 @@ class GraphiteWriter(prefix: String, host: String, port: Int, queueSize: Int = 1
 
   private class InnerWriter() extends Runnable {
 
-    val writesBufferSize = 8
+    val writesBufferSize = 4
     var writer: Option[Writer] = None
     var writesCount = 0
 

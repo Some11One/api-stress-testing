@@ -51,8 +51,8 @@ object OffersPostUpdateDeleteSearch {
 
 class OffersPostUpdateDeleteTest extends Simulation with GatlingSettings {
 
-  override val scn: ScenarioBuilder = scenario("PostUpdateDelete").exec(OffersPostUpdateDeleteSearch.search)
-  override val scenarioName: String = "post_update_delete"
+  override val scn: ScenarioBuilder = scenario("OffersPostUpdateDelete").exec(OffersPostUpdateDeleteSearch.search)
+  override val scenarioName: String = "offers_post_update_delete"
 
   setUp(
     scn.inject(rampUsers(numberOfUsers).over(FiniteDuration.apply(rampSeconds, "seconds")))

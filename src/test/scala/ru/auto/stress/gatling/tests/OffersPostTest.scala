@@ -21,6 +21,7 @@ object OffersPostSearch {
         .header("Content-Type", "application/json")
         .header("x-uid", "${uid}")
         .header("x-authorization", "Vertis swagger-025b6a073d84564e709033f07438aa62")
+        .check(status.is(200))
         .notSilent
         .asJSON
     )
@@ -30,6 +31,7 @@ class OffersPostTest extends Simulation with GatlingSettings {
 
   override val scn: ScenarioBuilder = scenario("Post").exec(OffersPostSearch.search)
   override val scenarioName: String = "post"
+  override val numberOfSteps = 1
 
   setUp(
     scn.inject(rampUsers(numberOfUsers).over(FiniteDuration.apply(rampSeconds, "seconds")))

@@ -14,13 +14,14 @@ trait GatlingSettings extends GatlingUtils {
   val numberOfUsers = 1000
   val rampSeconds = 10
 
+  val numberOfSteps: Int
   val scenarioName: String
   val scn: ScenarioBuilder
 
   val httpConf: HttpProtocolBuilder = http
     .baseURL("http://autoru-api-01-sas.test.vertis.yandex.net:2600/1.0/user")
     .header("Accept", "application/json")
-    .extraInfoExtractor(extraInfo => List(getExtraInfo(extraInfo)))
+    .extraInfoExtractor(extraInfo => List(getExtraInfo(numberOfSteps, extraInfo)))
 
   val graphiteHost = "ndmelentev-01-sas.dev.vertis.yandex.net"
   val graphitePort = 42000

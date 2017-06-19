@@ -19,6 +19,7 @@ object OffersListingSearch {
         .get("/offers/${category}")
         .header("x-uid", "${uid}")
         .header("x-authorization", "Vertis swagger-025b6a073d84564e709033f07438aa62")
+        .check(status.is(200))
         .notSilent
         .asJSON
     )
@@ -28,6 +29,7 @@ class OffersListingTest extends Simulation with GatlingSettings {
 
   override val scn: ScenarioBuilder = scenario("Listing").exec(OffersListingSearch.search)
   override val scenarioName: String = "listing"
+  override val numberOfSteps = 1
 
   setUp(
     scn.inject(rampUsers(numberOfUsers).over(FiniteDuration.apply(rampSeconds, "seconds")))

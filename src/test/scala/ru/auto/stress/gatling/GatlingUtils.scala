@@ -11,19 +11,35 @@ import scala.collection.mutable.ListBuffer
   */
 trait GatlingUtils {
 
-  var responseTimesOK: ListBuffer[Int] = ListBuffer[Int]()
-  var responseTimesKO: ListBuffer[Int] = ListBuffer[Int]()
+  private var responseTimesOK: ListBuffer[Int] = ListBuffer[Int]()
+  private var responseTimesKO: ListBuffer[Int] = ListBuffer[Int]()
+  private var counter: Int = 0
+  private var currentValue: Int = 0
 
-  def getExtraInfo(extraInfo: ExtraInfo): String = {
+  def getExtraInfo(numberOfSteps: Int, extraInfo: ExtraInfo): String = {
     if (extraInfo.status.eq(Status.apply("KO"))) {
-      responseTimesKO += extraInfo.response.timings.responseTime
+      addResponseTime(ko = true, numberOfSteps, extraInfo.response.timings.responseTime)
       ",URL:" + extraInfo.request.getUrl +
         " User id: " + extraInfo.request.getHeaders.get("x-uid") +
         " Request: " + extraInfo.request.getStringData +
         " Response: " + extraInfo.response.body.string
     } else {
-      responseTimesOK += extraInfo.response.timings.responseTime
+      addResponseTime(ko = false, numberOfSteps, extraInfo.response.timings.responseTime)
       ""
+    }
+  }
+
+  def addResponseTime(ko: Boolean, numberOfSteps: Int, value: Int): Unit = {
+    currentValue += value
+    counter += 1
+    if (counter >= numberOfSteps) {
+      if (ko) {
+        responseTimesKO += currentValue
+      } else {
+        responseTimesOK += currentValue
+      }
+      counter = 0
+      currentValue = 0
     }
   }
 
@@ -38,8 +54,8 @@ trait GatlingUtils {
     graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_KO.p95", percentile(95, responseTimesKO).toString, null)
     graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_KO.p75", percentile(75, responseTimesKO).toString, null)
     graphiteWriter.submit(s".api_stress_test.${numberOfUsers}_users_${rampSeconds}_second.${scenarioName}_time.result_KO.p50", percentile(50, responseTimesKO).toString, null)
-    print(s"\nWaiting 2 sec to send data to Graphit...\n")
-    Thread.sleep(2000)
+    print(s"\nWaiting 10 sec to send data to Graphit...\n")
+    Thread.sleep(10000)
     print(s"Waiting complete.\n")
   }
 

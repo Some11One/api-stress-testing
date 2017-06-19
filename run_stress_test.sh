@@ -6,4 +6,5 @@ mvn gatling:execute -Dgatling.simulationClass=ru.auto.stress.gatling.tests.Offer
 # post + delete
 mvn gatling:execute -Dgatling.simulationClass=ru.auto.stress.gatling.tests.OffersPostDeleteTest
 
-#
+# post + update + delete
+mvn gatling:execute -Dgatling.simulationClass=ru.auto.stress.gatling.tests.OffersPostUpdateDeleteTest

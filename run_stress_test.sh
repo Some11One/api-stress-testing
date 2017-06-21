@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-# all
+# all test classes
 mvn gatling:execute

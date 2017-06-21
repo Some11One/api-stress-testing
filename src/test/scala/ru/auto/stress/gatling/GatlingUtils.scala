@@ -30,10 +30,12 @@ class GatlingUtils {
     }
 
     if (extraInfo.status.eq(Status.apply("KO"))) {
-      ",URL:" + extraInfo.request.getUrl +
+      val info = ",URL:" + extraInfo.request.getUrl +
         " User id: " + extraInfo.request.getHeaders.get("x-uid") +
         " Request: " + extraInfo.request.getStringData +
         " Response: " + extraInfo.response.body.string
+      println(info)
+      info
     } else {
       ""
     }

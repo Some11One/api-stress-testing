@@ -8,7 +8,9 @@ import io.gatling.http.protocol.HttpProtocolBuilder
   * Author: ndmelentev (ndmelentev@yandex-team.ru)
   * Created: 13.06.17
   */
-trait GatlingSettings extends GatlingUtils {
+trait GatlingSettings {
+
+  val gatlingUtils: GatlingUtils = new GatlingUtils()
 
   val rps: Int = 30
   val rampSeconds: Int = 600
@@ -17,7 +19,7 @@ trait GatlingSettings extends GatlingUtils {
   val httpConf: HttpProtocolBuilder = http
     .baseURL("http://autoru-api-01-sas.test.vertis.yandex.net:2600/1.0/user")
     .header("Accept", "application/json")
-    .extraInfoExtractor(extraInfo => List(getExtraInfo(extraInfo)))
+    .extraInfoExtractor(extraInfo => List(gatlingUtils.getExtraInfo(extraInfo)))
 
   val graphiteHost = "ndmelentev-01-sas.dev.vertis.yandex.net"
   val graphitePort = 42000

@@ -210,6 +210,6 @@ class StressTest extends Simulation with GatlingSettings {
   ).protocols(httpConf)
 
   after({
-    printToGraphite(graphiteWriter, numberOfUsers, rampSeconds)
+    gatlingUtils.printToGraphite(graphiteWriter, numberOfUsers, rampSeconds)
   })
 }

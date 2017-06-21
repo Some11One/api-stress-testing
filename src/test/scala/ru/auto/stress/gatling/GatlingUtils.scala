@@ -9,7 +9,7 @@ import scala.collection.mutable
   * Author: ndmelentev (ndmelentev@yandex-team.ru)
   * Created: 13.06.17
   */
-trait GatlingUtils {
+class GatlingUtils {
 
   private val responseTimes: mutable.HashMap[String, mutable.HashMap[Long, Int]] = mutable.HashMap[String, mutable.HashMap[Long, Int]]()
 

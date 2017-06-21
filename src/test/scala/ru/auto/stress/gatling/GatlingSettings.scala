@@ -12,7 +12,7 @@ trait GatlingSettings {
 
   val gatlingUtils: GatlingUtils = new GatlingUtils()
 
-  val rps: Int = 10
+  val rps: Int = 30
   val rampSeconds: Int = 600
   val numberOfUsers: Int = rps * rampSeconds
 
